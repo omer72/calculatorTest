@@ -16,14 +16,6 @@ app.use(bodyParser.json());
 // Serve Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// Mock users data
-const users = [
-    {
-        username: 'user1',
-        password: 'password1'
-    }
-];
-
 // Secret key for JWT
 const secretKey = 'your_secret_key';
 
