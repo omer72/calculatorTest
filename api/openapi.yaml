@@ -38,14 +38,14 @@ components:
   schemas:
     CalculatorValues:
       required:
-      - firstNumber
-      - operation
+      - num1
+      - num2
       - secondNumber
       type: object
       properties:
-        firstNumber:
+        num1:
           type: number
-        secondNumber:
+        num2:
           type: number
         operation:
           type: string
