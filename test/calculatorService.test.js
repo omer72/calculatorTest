@@ -24,7 +24,7 @@ describe('Calculator Service', () => {
 
         calculate(req, res);
         expect(res.status).toHaveBeenCalledWith(400);
-        expect(res.send).toHaveBeenCalledWith('Missing values');
+        expect(res.send).toHaveBeenCalledWith('Invalid input. Please provide valid numbers or operation.');
     });
 
     it('should handle invalid operation', () => {
@@ -36,6 +36,6 @@ describe('Calculator Service', () => {
 
         calculate(req, res);
         expect(res.status).toHaveBeenCalledWith(400);
-        expect(res.send).toHaveBeenCalledWith('Invalid operation');
+        expect(res.send).toHaveBeenCalledWith('Invalid operation. Please provide a valid operation.[add, subtract, multiply or divide]');
     });
 });
