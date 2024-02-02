@@ -1,0 +1,56 @@
+openapi: 3.0.0
+info:
+  title: Calculator
+  description: This is a calcultor API
+  contact:
+    email: omer72@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: http://localhost:3000
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: calculate
+  description: Simple Calculator
+paths:
+  /calculate:
+    post:
+      tags:
+      - calculate
+      summary: calcuate 2 numbers using the action
+      description: Calcuate 2 numbers using the action
+      operationId: calculate
+      requestBody:
+        description: Inventory item to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalculatorValues'
+      responses:
+        "201":
+          description: Successful operation
+        "400":
+          description: "invalid input, object invalid"
+      x-swagger-router-controller: Calcultor
+components:
+  schemas:
+    CalculatorValues:
+      required:
+      - firstNumber
+      - operation
+      - secondNumber
+      type: object
+      properties:
+        firstNumber:
+          type: number
+        secondNumber:
+          type: number
+        operation:
+          type: string
+          enum:
+          - add
+          - subtract
+          - multiply
+          - divide
