@@ -38,4 +38,16 @@ describe('Calculator Service', () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.send).toHaveBeenCalledWith('Invalid operation. Please provide a valid operation.[add, subtract, multiply or divide]');
     });
+
+    it('should handle with zero in division', () => {
+        const req = { body: { num1: 5, num2: 0, operation: 'divide' } };
+        const res = {
+            status: jest.fn().mockReturnThis(),
+            send: jest.fn()
+        };
+
+        calculate(req, res);
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.send).toHaveBeenCalledWith('Cannot divide by zero.');
+    });
 });

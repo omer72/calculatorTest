@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const yaml = require('yamljs');
 const swaggerUi = require('swagger-ui-express');
 const Calculator = require("./services/calculatorService");
+const TokenGenerator = require("./services/authorizationService");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,23 +18,34 @@ app.use(bodyParser.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Secret key for JWT
-const secretKey = 'your_secret_key';
+const secretKey = process.env.SECRET_KEY || 'your_secret_key';
 
-// Authorization middleware
-const authorize = (req, res, next) => {
-    const token = req.header('Authorization');
-    if (!token) return res.status(401).send('Access Denied');
+// Generate JWT token
+app.get('/generate-token', (req, res) => {
+    TokenGenerator.generateToken(req, res);
+});
 
-    try {
-        req.user = jwt.verify(token, secretKey);
-        next();
-    } catch (err) {
-        res.status(400).send('Invalid Token');
+
+// Middleware to verify JWT token
+const verifyToken = (req, res, next) => {
+    let token = req.headers.authorization;
+    token = token.substring(7);
+
+    if (!token) {
+        return res.status(403).json({ message: 'Token not provided' });
     }
+
+    jwt.verify(token, secretKey, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ message: 'Invalid token' });
+        }
+        req.decoded = decoded;
+        next();
+    });
 };
 
 // API endpoint
-app.post('/calculate', authorize, (req, res) => {
+app.post('/calculate', verifyToken, (req, res) => {
     Calculator.calculate(req, res);
 });
 
