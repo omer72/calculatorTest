@@ -23,7 +23,7 @@ Install dependencies
 Start the server
 
 ```bash
-  npm run start
+  npm run startEnv
 ```
 
 ## Running Tests
@@ -39,15 +39,13 @@ To run tests, run the following command
 * Build Docker Image: Use the docker build command to build your Docker image based on the Dockerfile. Navigate to your project directory in the terminal and run:
 
 ```
-  docker build -t <my-node-app> .
+  docker build -t calculator .
 ```
-
-Replace my-node-app with your desired image name.
 
 * Run Docker Container: Once the Docker image is built, you can run a container using the docker run command. For example:
 
 ```
-  docker run -p 3000:3000 <my-node-app>
+  docker run -p 3000:3000 --env-file .env calculator
 ```
 
-* This command runs a container based on the my-node-app image, mapping port 3000 of the host to port 3000 of the container.
+* This command runs a container based on the calculator image, mapping port 3000 of the host to port 3000 of the container.
