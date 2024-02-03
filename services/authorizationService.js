@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 exports.generateToken = function(req, res){
     const payload = {
-        userId: req.body.userId,
-        username: req.body.username
+        userId: req.query.userId,
+        username: req.query.password
     };
     const expiresIn = '1h'; // Token expiration time
     const secretKey = process.env.SECRET_KEY;
