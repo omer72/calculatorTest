@@ -21,7 +21,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 const secretKey = process.env.SECRET_KEY || 'your_secret_key';
 
 // Generate JWT token
-app.get('/generate-token', (req, res) => {
+app.get('/generateToken', (req, res) => {
     TokenGenerator.generateToken(req, res);
 });
 
